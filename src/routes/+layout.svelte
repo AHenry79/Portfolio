@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Nav from '$lib/components/Nav.svelte';
 	import Cursor from '$lib/components/Cursor.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import { onNavigate } from '$app/navigation';
 
 	// Smooth page chagnes
@@ -22,6 +23,8 @@
 <main>
 	<slot />
 </main>
+
+<Footer />
 
 <style>
   main {
