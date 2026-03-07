@@ -8,17 +8,24 @@
 		'reveal_w11','reveal_w12','reveal_w13','reveal_w14','reveal_w15',
 		'reveal_w16','reveal_w17','reveal_w18','reveal_w19','reveal_w20',
 	] as const;
+	const msg = m as unknown as Record<string, () => string>;
 </script>
 
 <div id="word-reveal" class="relative bg-charcoal px-16 py-40 overflow-hidden max-lg:px-8 max-lg:py-16" use:wordReveal>
 	<div class="max-w-[860px] mx-auto pl-8">
 		<p class="font-mono text-[0.65rem] tracking-[0.2em] text-gold uppercase mb-12 opacity-70">{m.reveal_label()}</p>
 		<p class="word-reveal-text font-display font-light leading-[1.45] tracking-[0.01em]" style="font-size:clamp(2rem,4.5vw,3.8rem)">
-			{#each wordKeys as key}
-				{#if m[key]()}
-					<span class="w">{m[key]()}</span>{' '}
-				{/if}
+			{#each wordKeys as key (key)}
+				{#if msg[key]()}
+					<span class="w">{msg[key]()}</span>{/if}
 			{/each}
 		</p>
 	</div>
 </div>
+
+<style>
+	.w {
+		display: inline-block;
+		margin-right: 0.28em;
+	}
+</style>
