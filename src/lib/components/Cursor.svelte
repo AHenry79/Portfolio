@@ -1,97 +1,84 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let ringX = 0;
-    let ringY = 0;
-    let isHovering = false;
-    let raf: number;
+	let mouseX = $state(0);
+	let mouseY = $state(0);
+	let ringX = $state(0);
+	let ringY = $state(0);
+	let hovering = $state(false);
 
-    onMount(() => {
-        function onMouseMove(e: MouseEvent) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        }
-        function animateRing() {
-            ringX += (mouseX- ringX) * 0.12;
-            ringY += (mouseY- ringY) * 0.12;
-            raf = requestAnimationFrame(animateRing);
-        }
-        // function onEnter() {
-        //     isHovering = true;
-        // }
-        // function onLeave() {
-        //     isHovering = false;
-        // }
-        window.addEventListener('mousemove', onMouseMove);
+	onMount(() => {
+		let raf: number;
 
-        // Hover detection responsible for interactive elements
-        document.body.addEventListener('mouseover', (e) => {
-            const target = e.target as HTMLElement;
-            if (target.closest('a, button, [role="button"], .service-card, .portfolio-item')) {
-                isHovering = false;
-            }
-        });
+		const onMouseMove = (e: MouseEvent) => { mouseX = e.clientX; mouseY = e.clientY; };
 
-        raf = requestAnimationFrame(animateRing);
-        animateRing();
+		const animateRing = () => {
+			ringX += (mouseX - ringX) * 0.12;
+			ringY += (mouseY - ringY) * 0.12;
+			raf = requestAnimationFrame(animateRing);
+		};
 
-        return () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            cancelAnimationFrame(raf);
-        }
-    })
+		document.body.addEventListener('mouseover', (e) => {
+			if ((e.target as HTMLElement).closest('a, button, [role="button"]')) hovering = true;
+		});
+		document.body.addEventListener('mouseout', (e) => {
+			if ((e.target as HTMLElement).closest('a, button, [role="button"]')) hovering = false;
+		});
+
+		window.addEventListener('mousemove', onMouseMove);
+		raf = requestAnimationFrame(animateRing);
+
+		return () => {
+			window.removeEventListener('mousemove', onMouseMove);
+			cancelAnimationFrame(raf);
+		};
+	});
 </script>
-<!-- Only shown on desktop -->
-<div 
-    class="cursor" 
-    class:hovering={isHovering} 
-    style="left: {mouseX}px; top: {mouseY}px;" 
-    aria-hidden="true" >
-</div>
-<div 
-    class="cursor-ring"
-    style="left: {ringX}px; top: {ringY}px;"
-    aria-hidden="true">
-</div>
+
+<div class="cursor" class:hovering style="left:{mouseX}px;top:{mouseY}px" aria-hidden="true"></div>
+<div class="cursor-ring" class:hovering style="left:{ringX}px;top:{ringY}px" aria-hidden="true"></div>
 
 <style>
-    .cursor,
-    .cursor-ring {
-        position: fixed;
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translate(-50%, -50%);
-        /* Hide on touch or coarse devices */
-        display: none;
-    }
+	.cursor,
+	.cursor-ring {
+		position: fixed;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 9999;
+		/* centering handled here — never via Tailwind utilities */
+		transform: translate(-50%, -50%);
+		display: none;
+	}
 
-    @media (pointer: fine) {
-        .cursor {
-            display: block;
-            width: 12px;
-            height: 12px;
-            background: var(--forest-mid);
-            mix-blend-mode: multiply;
-            transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), background 0.3s;
-        }
-        .cursor.hovering {
-            width: 40px;
-            height: 40px;
-            background: var(--gold);
-            mix-blend-mode: normal;
-        }
-        .cursor-ring {
-            display: block;
-            width: 36px;
-            height: 36px;
-            border: 1.5px solid var(--forest-mid);
-            opacity: 0.6;
-            transition: transform 0.3s var(--ease-out), opacity 0.3s;
-        }
-        .cursor-ring.hovering {
-            transform: translate(-50%, -50%) scale(1.4);
-        }
-    }
+	@media (pointer: fine) {
+		.cursor {
+			display: block;
+			width: 10px;
+			height: 10px;
+			background: #3d6456;
+			mix-blend-mode: multiply;
+			transition: width .25s ease, height .25s ease, background .25s ease;
+		}
+		.cursor.hovering {
+			width: 36px;
+			height: 36px;
+			background: #c4a882;
+			mix-blend-mode: normal;
+		}
+		.cursor-ring {
+			display: block;
+			width: 32px;
+			height: 32px;
+			border: 1.5px solid #3d6456;
+			opacity: 0.5;
+			/* only transition opacity — transform is managed by JS interpolation */
+			transition: opacity .3s ease, width .25s ease, height .25s ease, border-color .25s ease;
+		}
+		.cursor-ring.hovering {
+			width: 48px;
+			height: 48px;
+			opacity: 0.25;
+			border-color: #c4a882;
+		}
+	}
 </style>
