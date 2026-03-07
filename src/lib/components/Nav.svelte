@@ -6,6 +6,14 @@
 	let scrolled = $state(false);
 	let progress = $state(0);
 	let menuOpen = $state(false);
+	let menuClosing = $state(false);
+
+	function openMenu()  { menuClosing = false; menuOpen = true; }
+	function closeMenu() {
+		menuClosing = true;
+		setTimeout(() => { menuOpen = false; menuClosing = false; }, 280);
+	}
+	function toggleMenu() { if (menuOpen && !menuClosing) { closeMenu(); } else { openMenu(); } }
 
 	onMount(() => {
 		const onScroll = () => {
@@ -36,7 +44,7 @@
 	</a>
 
 	<ul class="hidden lg:flex gap-9">
-		{#each links as link}
+		{#each links as link(link)}
 			<li>
 				<a href={link.href} class="nav-link relative font-mono text-[0.72rem] tracking-[0.05em] text-slate-green pb-[3px] transition-colors hover:text-forest">
 					{m[link.key]()}
@@ -62,31 +70,31 @@
 		</a>
 
 		<button
-			onclick={() => menuOpen = !menuOpen}
+			onclick={toggleMenu}
 			class="flex lg:hidden flex-col gap-[5px] bg-transparent border-none cursor-pointer p-2 w-9"
 			aria-label="Toggle menu"
 			aria-expanded={menuOpen}
 		>
-			<span class="block h-[2px] bg-forest-deep transition-all duration-300 origin-center {menuOpen ? 'translate-y-[7px] rotate-45' : ''}"></span>
-			<span class="block h-[2px] bg-forest-deep transition-all duration-300 {menuOpen ? 'opacity-0 scale-x-0' : ''}"></span>
-			<span class="block h-[2px] bg-forest-deep transition-all duration-300 origin-center {menuOpen ? '-translate-y-[7px] -rotate-45' : ''}"></span>
+			<span class="block h-[2px] bg-forest-deep transition-all duration-300 origin-center {menuOpen && !menuClosing ? 'translate-y-[7px] rotate-45' : ''}"></span>
+			<span class="block h-[2px] bg-forest-deep transition-all duration-300 {menuOpen && !menuClosing ? 'opacity-0 scale-x-0' : ''}"></span>
+			<span class="block h-[2px] bg-forest-deep transition-all duration-300 origin-center {menuOpen && !menuClosing ? '-translate-y-[7px] -rotate-45' : ''}"></span>
 		</button>
 	</div>
 </nav>
 
-{#if menuOpen}
+{#if menuOpen && !menuClosing}
 	<div class="fixed inset-0 z-[150] bg-stone/97 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
-		style="animation:var(--animate-menu-in)" role="dialog" aria-modal="true">
+		style="animation:{menuClosing ? 'var(--animate-menu-out)' : 'var(--animate-menu-in)'}" role="dialog" aria-modal="true">
 		<ul class="flex flex-col items-center gap-7">
-			{#each links as link}
+			{#each links as link (link.href)}
 				<li>
-					<a href={link.href} onclick={() => menuOpen = false} class="font-display text-[2rem] font-light text-forest-deep">
+					<a href={link.href} onclick={closeMenu} class="font-display text-[2rem] font-light text-forest-deep">
 						{m[link.key]()}
 					</a>
 				</li>
 			{/each}
 		</ul>
-		<a href="#contact" onclick={() => menuOpen = false}
+		<a href="#contact" onclick={closeMenu}
 			class="bg-forest text-fog px-8 py-[0.85rem] text-[0.82rem] tracking-[0.08em] font-medium rounded-[3px] transition-all hover:bg-forest-mid">
 			{m.nav_cta()}
 		</a>
