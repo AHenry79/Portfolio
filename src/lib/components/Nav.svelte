@@ -28,8 +28,8 @@
 
 	const links = [
 		{ href: '#services',     key: 'nav_services' as const },
-		{ href: '#process',      key: 'nav_process'  as const },
 		{ href: '#work',         key: 'nav_work'     as const },
+		{ href: '#process',      key: 'nav_process'  as const },
 		{ href: '#about',        key: 'nav_about'    as const },
 		{ href: '#contact',      key: 'nav_contact'  as const },
 	];
@@ -112,7 +112,7 @@
 		            width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	:global(body.ja) .lang-pill {
-		width: calc(100% - 42px);
+		width: calc(100% - 46px);
 		transform: translateX(38px);
 	}
 	:global(body:not(.ja)) .lang-opt-en { color: #e8f0ec; }

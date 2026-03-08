@@ -33,7 +33,7 @@
 <Work />
 <Process />
 <WordReveal />
-<Testimonials />
+<!-- <Testimonials /> -->
 <About />
 <Contact />
 <Footer />
