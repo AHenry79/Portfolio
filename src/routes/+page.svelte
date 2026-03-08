@@ -10,7 +10,7 @@
 	import Work         from '$lib/components/Work.svelte';
 	import Process      from '$lib/components/Process.svelte';
 	import WordReveal   from '$lib/components/WordReveal.svelte';
-	import Testimonials from '$lib/components/Testimonials.svelte';
+	// import Testimonials from '$lib/components/Testimonials.svelte';
 	import About        from '$lib/components/About.svelte';
 	import Contact      from '$lib/components/Contact.svelte';
 	import Footer       from '$lib/components/Footer.svelte';
