@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { wordReveal } from '$lib/actions/gsap';
 	import * as m from '$lib/paraglide/messages';
+	import { getLocale } from '$lib/paraglide/runtime';
+	const isJa = getLocale() === 'ja';
 
 	const wordKeys = [
 		'reveal_w1','reveal_w2','reveal_w3','reveal_w4','reveal_w5',
@@ -14,7 +16,7 @@
 <div id="word-reveal" class="relative bg-charcoal px-16 py-40 overflow-hidden max-lg:px-8 max-lg:py-16" use:wordReveal>
 	<div class="max-w-[860px] mx-auto pl-8">
 		<p class="font-mono text-[0.65rem] tracking-[0.2em] text-gold uppercase mb-12 opacity-70">{m.reveal_label()}</p>
-		<p class="word-reveal-text font-display font-light leading-[1.45] tracking-[0.01em]" style="font-size:clamp(2rem,4.5vw,3.8rem)">
+		<p class="word-reveal-text font-display font-light leading-[1.45] tracking-[0.01em]" class:ja={isJa} style="font-size:clamp(2rem,4.5vw,3.8rem)">
 			{#each wordKeys as key (key)}
 				{#if msg[key]()}
 					<span class="w">{msg[key]()}</span>{/if}
@@ -27,5 +29,8 @@
 	.w {
 		display: inline-block;
 		margin-right: 0.28em;
+	}
+	.ja .w {
+		margin-right: 0;
 	}
 </style>

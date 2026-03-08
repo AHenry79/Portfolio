@@ -21,6 +21,7 @@
 			const max = document.body.scrollHeight - window.innerHeight;
 			progress = max > 0 ? (window.scrollY / max) * 100 : 0;
 		};
+		onScroll();
 		window.addEventListener('scroll', onScroll, { passive: true });
 		return () => window.removeEventListener('scroll', onScroll);
 	});

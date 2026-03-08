@@ -11,7 +11,7 @@
 	];
 </script>
 
-<section id="hero" class="hero-section min-h-screen grid items-start relative overflow-hidden pt-24 pb-12 px-16 bg-gradient-to-br from-stone via-fog to-[#dce8e2] max-xl:px-8 xl:grid-cols-[1fr_1fr]"
+<section id="hero" class="hero-section min-h-screen grid items-start relative overflow-hidden pt-24 pb-12 px-16 bg-gradient-to-br from-stone via-fog to-[#dce8e2] max-xl:px-8 max-sm:px-4 xl:grid-cols-[1fr_1fr]"
 	style="gap:clamp(2rem,4vw,4rem)">
 
 	<div class="absolute rounded-full pointer-events-none blur-[80px] will-change-transform w-[520px] h-[520px] -right-16 -top-20"
@@ -29,7 +29,7 @@
 			{m.hero_eyebrow()}
 		</p>
 
-		<h1 class="font-display font-light leading-[1.1] text-forest-deep mb-6" style="font-size:clamp(2.8rem,5.5vw,5.2rem)">
+		<h1 class="font-display font-light leading-[1.1] text-forest-deep mb-6" style="font-size:clamp(2.9rem,5.5vw,5.2rem)">
 			{#each m.hero_title_line1().split(' ') as word, i(i)}
 				<span class="word-clip"><span class="word-rise" style="--d:{0.4 + i * 0.12}s">{word}</span></span> 
 			{/each}<br>

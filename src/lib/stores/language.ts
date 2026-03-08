@@ -15,7 +15,7 @@ function applyLang(lang: Language) {
 }
 
 if (browser) {
-	language.subscribe(applyLang);
+	applyLang(initial);
 }
 
 export function toggleLanguage() {
