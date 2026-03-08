@@ -29,7 +29,7 @@
 			{m.hero_eyebrow()}
 		</p>
 
-		<h1 class="font-display font-light leading-[1.1] text-forest-deep mb-6" style="font-size:clamp(2.5rem,5.5vw,5.2rem)">
+		<h1 class="font-display font-light leading-[1.1] text-forest-deep mb-6" style="font-size:clamp(2.4rem,5.5vw,5.2rem)">
 			{#each m.hero_title_line1().split(' ') as word, i(i)}
 				<span class="word-clip"><span class="word-rise" style="--d:{0.4 + i * 0.12}s">{word}</span></span> 
 			{/each}<br>
