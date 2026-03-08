@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { parallaxOrb } from '$lib/actions/gsap';
 	import * as m from '$lib/paraglide/messages';
+	import { getLocale } from '$lib/paraglide/runtime';
+	const h1Size = getLocale() === 'ja' ? 'clamp(2.2rem,5.5vw,5.2rem)' : 'clamp(3.2rem,5.5vw,5.2rem)';
 
 	const pills = [
 		{ en: '✦ Custom Design',       ja: '✦ カスタムデザイン',  delay: '0s',   dur: '7s',   pos: 'top-[14%] left-[8%]'  },
@@ -29,7 +31,7 @@
 			{m.hero_eyebrow()}
 		</p>
 
-		<h1 class="font-display font-semibold leading-[1.1] text-forest-deep mb-6" style="font-size:clamp(2.2rem,5.5vw,5.2rem)">
+		<h1 class="font-display font-light leading-[1.1] text-forest-deep mb-6" style="font-size:{h1Size}">
 			{#each m.hero_title_line1().split(' ') as word, i(i)}
 				<span class="word-clip"><span class="word-rise" style="--d:{0.4 + i * 0.12}s">{word}</span></span> 
 			{/each}<br>
