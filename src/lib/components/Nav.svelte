@@ -83,7 +83,7 @@
 	</div>
 </nav>
 
-{#if menuOpen && !menuClosing}
+{#if menuOpen}
 	<div class="fixed inset-0 z-[150] bg-stone/97 backdrop-blur-xl flex flex-col items-center justify-center gap-8"
 		style="animation:{menuClosing ? 'var(--animate-menu-out)' : 'var(--animate-menu-in)'}" role="dialog" aria-modal="true">
 		<ul class="flex flex-col items-center gap-7">
