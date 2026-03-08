@@ -53,7 +53,7 @@
 	}
 </script>
 
-<section id="contact" class="bg-stone px-16 py-32 max-lg:px-8 max-lg:py-20">
+<section id="contact" class="bg-stone px-16 py-32 max-lg:px-8 max-lg:py-20 overflow-hidden">
 	<div class="flex items-center gap-3 font-mono text-[0.68rem] tracking-[0.18em] uppercase text-forest-mid mb-8 sr" use:reveal>
 		<span class="w-8 h-px bg-gold shrink-0"></span>{m.contact_eyebrow()}
 	</div>
