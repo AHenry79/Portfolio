@@ -3,7 +3,7 @@
 	import * as m from '$lib/paraglide/messages';
 
 	const cards = [
-		{ qKey: 't1_quote' as const, nKey: 't1_name' as const, rKey: 't1_role' as const, initial: 'M', rv: 'sr-left' },
+		{ qKey: 't1_quote' as const, nKey: 't1_name' as const, rKey: 't1_role' as const, initial: 'T', rv: 'sr-left' },
 		{ qKey: 't2_quote' as const, nKey: 't2_name' as const, rKey: 't2_role' as const, initial: 'J', rv: 'sr'      },
 		{ qKey: 't3_quote' as const, nKey: 't3_name' as const, rKey: 't3_role' as const, initial: 'S', rv: 'sr-right' },
 	];
@@ -17,7 +17,7 @@
 		{m.t_heading()}<br><em class="italic text-sage">{m.t_heading_em()}</em>
 	</h2>
 	<div class="grid grid-cols-3 gap-8 max-lg:grid-cols-1">
-		{#each cards as card, i}
+		{#each cards as card, i(i)}
 			<div class="{card.rv} d{i+1} bg-white/4 border border-white/7 p-10 rounded-[2px]" use:reveal>
 				<p class="font-display text-[1.1rem] text-mist italic leading-[1.75] mb-7 font-light">"{m[card.qKey]()}"</p>
 				<div class="flex items-center gap-4">

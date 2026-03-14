@@ -91,17 +91,26 @@ export const wordReveal: Action = (node) => {
 export const stickyCounter: Action<HTMLElement, { el: HTMLElement | null; total: number }> = (node, params) => {
 	let el = params?.el ?? null;
 	const total = params?.total ?? 4;
-	const steps = node.querySelectorAll('.process-step');
+	const steps = Array.from(node.querySelectorAll('.process-step')) as HTMLElement[];
 	const set = (i: number) => {
 		if (!el) return;
 		el.textContent = document.body.classList.contains('ja')
 			? `ステップ ${i} / ${total}`
 			: `Step ${i} of ${total}`;
 	};
-	const io = new IntersectionObserver(
-		entries => entries.forEach(e => { if (e.isIntersecting) set(Array.from(steps).indexOf(e.target as HTMLElement) + 1); }),
-		{ threshold: 0.5, rootMargin: '-20% 0px -20% 0px' }
-	);
-	steps.forEach(s => io.observe(s));
-	return { update(p: { el: HTMLElement | null; total: number }) { el = p.el; }, destroy() { io.disconnect(); } };
+	const update = () => {
+		const mid = window.innerHeight / 2;
+		let closest = 0;
+		let closestDist = Infinity;
+		steps.forEach((step, i) => {
+			const rect = step.getBoundingClientRect();
+			const center = (rect.top + rect.bottom) / 2;
+			const dist = Math.abs(center - mid);
+			if (dist < closestDist) { closestDist = dist; closest = i; }
+		});
+		set(closest + 1);
+	};
+	window.addEventListener('scroll', update, { passive: true });
+	update();
+	return { update(p: { el: HTMLElement | null; total: number }) { el = p.el; }, destroy() { window.removeEventListener('scroll', update); } };
 };
