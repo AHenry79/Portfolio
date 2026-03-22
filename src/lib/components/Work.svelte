@@ -7,7 +7,7 @@
 	const projects = [
 		{
 			name: 'Taylor\'d Beauty',
-			url: 'https://taylord-beauty.netlify.app',
+			url: 'https://taylordbeauty.studio',
 			role: 'Design & Development',
 			tags: ['SvelteKit', 'TypeScript', 'Tailwind CSS', 'GSAP'],
 			desc: 'A vibrant, editorial site for a licensed esthetician in Ann Arbor. Designed to reflect her unique brand and make booking feel as polished as her services.',
@@ -54,7 +54,7 @@
 			>
 				<!-- Visual panel -->
 				{#if project.screenshot}
-				<div class="relative overflow-hidden leading-0">
+				<div class="relative overflow-hidden leading-[0]">
 					<img
 						src={project.screenshot}
 						alt="{project.name} screenshot"
