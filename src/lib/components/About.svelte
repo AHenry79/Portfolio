@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { reveal } from '$lib/actions/gsap';
 	import * as m from '$lib/paraglide/messages';
+	import headshot from '$lib/assets/headshot.png';
+
+	let imgLoaded = $state(false);
 
 	const blocks = [
 		{ numKey: 'about1_num' as const, hKey: 'about1_h' as const, bodyKey: 'about1_body' as const },
@@ -9,15 +12,26 @@
 	];
 </script>
 
-<section id="about" class="bg-stone px-16 pt-32 max-lg:px-8 max-lg:py-20 overflow-hidden">
+<section id="about" class="bg-stone px-16 pt-32 pb-16 max-lg:px-8 max-lg:py-20 overflow-x-hidden">
 	<div class="flex items-center gap-3 font-mono text-[0.68rem] tracking-[0.18em] uppercase text-forest-mid mb-8 sr" use:reveal>
 		<span class="w-8 h-px bg-gold shrink-0"></span>{m.about_eyebrow()}
 	</div>
 	<div class="grid grid-cols-2 gap-24 items-start max-lg:grid-cols-1">
 		<div class="sr-left self-stretch" use:reveal>
-			<div class="h-full min-h-[625px] rounded-[2px] overflow-hidden bg-gradient-to-b from-forest-mid to-forest-deep flex items-center justify-center relative shadow-[20px_20px_50px_rgba(45,74,62,.18)]">
-				<span class="font-display text-[9rem] text-white/10 font-light">A</span>
-				<div class="absolute bottom-5 left-5 bg-fog px-[1.1rem] py-[0.65rem] rounded-[1px] shadow-[0_4px_16px_rgba(0,0,0,.12)]">
+			<div class="h-full min-h-[625px] rounded-[2px] overflow-hidden bg-gradient-to-b from-forest-mid to-forest-deep relative shadow-[20px_20px_50px_rgba(45,74,62,.18)]">
+				{#if !imgLoaded}
+					<div class="absolute inset-0 flex items-center justify-center">
+						<span class="font-display text-[9rem] text-white/10 font-light">A</span>
+					</div>
+				{/if}
+				<img
+					src={headshot}
+					alt="Austin headshot"
+					class="absolute inset-0 w-full h-full object-cover object-[center_100%] transition-opacity duration-700 {imgLoaded ? 'opacity-100' : 'opacity-0'}"
+					onload={() => imgLoaded = true}
+				/>
+				<!-- Badge -->
+				<div class="absolute bottom-5 right-5 bg-fog px-[1.1rem] py-[0.65rem] rounded-[1px] shadow-[0_4px_16px_rgba(0,0,0,.12)] z-10">
 					<span class="block text-[0.75rem] text-slate-green">{m.about_badge()}</span>
 					<span class="block text-[0.75rem] text-forest-mid font-semibold">● {m.about_badge_loc()}</span>
 				</div>
