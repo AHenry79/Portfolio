@@ -18,7 +18,7 @@
 	</div>
 	<div class="grid grid-cols-2 gap-24 items-start max-lg:grid-cols-1">
 		<div class="sr-left self-stretch" use:reveal>
-			<div class="h-full min-h-[625px] rounded-[2px] overflow-hidden bg-gradient-to-b from-forest-mid to-forest-deep relative shadow-[20px_20px_50px_rgba(45,74,62,.18)]">
+			<div class="h-full min-h-[625px] max-lg:min-h-0 max-lg:aspect-3/4 rounded-xs overflow-hidden bg-linear-to-b from-forest-mid to-forest-deep relative shadow-[20px_20px_50px_rgba(45,74,62,.18)]">
 				{#if !imgLoaded}
 					<div class="absolute inset-0 flex items-center justify-center">
 						<span class="font-display text-[9rem] text-white/10 font-light">A</span>
@@ -27,7 +27,7 @@
 				<img
 					src={headshot}
 					alt="Austin headshot"
-					class="absolute inset-0 w-full h-full object-cover object-[center_100%] transition-opacity duration-700 {imgLoaded ? 'opacity-100' : 'opacity-0'}"
+					class="absolute inset-0 w-full h-full object-cover object-[center_100%] max-lg:object-[center_10%] transition-opacity duration-700 {imgLoaded ? 'opacity-100' : 'opacity-0'}"
 					onload={() => imgLoaded = true}
 				/>
 				<!-- Badge -->
